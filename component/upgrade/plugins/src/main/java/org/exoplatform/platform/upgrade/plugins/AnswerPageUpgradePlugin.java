@@ -69,7 +69,7 @@ public class AnswerPageUpgradePlugin extends UpgradeProductPlugin {
           if(NAVIGATION.equals(((Container)children.get(i)).getId())){
             page.getChildren().remove(i);
             if (LOG.isInfoEnabled()) {
-              LOG.info(NAVIGATION + " removed!");
+              LOG.info(pageName + " removed!");
             }
             break;
           }
