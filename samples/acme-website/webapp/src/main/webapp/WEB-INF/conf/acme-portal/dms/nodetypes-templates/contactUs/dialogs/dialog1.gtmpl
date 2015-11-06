@@ -24,7 +24,7 @@
 					$timestampName
 					<div style="display:none;">
 						<%
-						 String[] fieldName = ["jcrPath=/node", "mixintype=mix:i18n", "editable=if-null", "validate=empty,name", timestampName] ;
+						 String[] fieldName = ["jcrPath=/node", "mixintype=mix:i18n", "editable=if-null", "validate=empty", timestampName] ;
 						 uicomponent.addTextField("name", fieldName) ;
 						%>
 					</div>
