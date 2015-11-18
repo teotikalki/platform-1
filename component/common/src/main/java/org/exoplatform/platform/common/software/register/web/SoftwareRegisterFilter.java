@@ -33,6 +33,7 @@ import java.io.IOException;
  */
 public class SoftwareRegisterFilter implements Filter {
 
+  public static final String NOT_REACHABLE = "NOT_REACHABLE";
   private static final Log logger = ExoLogger.getLogger(SoftwareRegisterFilter.class);
   private static final String PLF_COMMUNITY_SERVLET_CTX = "/registrationPLF";
   private static final String SR_SERVLET_URL = "/software-register";
@@ -62,14 +63,14 @@ public class SoftwareRegisterFilter implements Filter {
     boolean isRestUri = (requestUri.contains(REST_URI));
     boolean requestSkip = plfRegisterService.isRequestSkip();
     String notReachable = (String)httpServletRequest.getSession().getAttribute("notReachable");
-    if(notReachable==null && !isRestUri && !plfRegisterService.isSoftwareRegistered()
-        && httpServletRequest.getMethod().equalsIgnoreCase("GET") ){
-      notReachable = httpServletRequest.getParameter("notReachable");
-      httpServletRequest.getSession().setAttribute("notReachable", notReachable);
+    if(notReachable==null) {
+      notReachable = httpServletRequest.getQueryString();
+      if (StringUtils.equals(notReachable, this.NOT_REACHABLE)) {
+        httpServletRequest.getSession().setAttribute("notReachable", true);
+      }
     }
-
     if(!isRestUri && !plfRegisterService.isSoftwareRegistered()
-            && !StringUtils.equals(notReachable, "true") && checkRequest(requestSkip)
+            && !StringUtils.equals(notReachable, this.NOT_REACHABLE) && checkRequest(requestSkip)
             && !plfRegisterService.isSkipPlatformRegistration()) {
       // Get full url
       String reqUri = httpServletRequest.getRequestURI().toString();
