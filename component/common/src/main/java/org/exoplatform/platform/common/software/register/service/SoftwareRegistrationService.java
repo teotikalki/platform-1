@@ -40,6 +40,8 @@ public interface SoftwareRegistrationService {
    */
   public boolean canSkipRegister();
 
+  public boolean canShowSkipBtn();
+
   public void updateSkippedNumber();
 
   /**
