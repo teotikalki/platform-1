@@ -20,57 +20,46 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="org.exoplatform.platform.common.software.register.service.SoftwareRegistrationService" %>
-
-<%@ page import="org.exoplatform.portal.resource.SkinService"%>
 <%@ page import="org.exoplatform.container.PortalContainer"%>
+<%@ page import="org.exoplatform.portal.resource.SkinService" %>
 <%
   String contextPath = request.getContextPath();
-  String lang = request.getLocale().getLanguage();
   response.setCharacterEncoding("UTF-8");
   response.setContentType("text/html; charset=UTF-8");
   SoftwareRegistrationService registrationService
           = PortalContainer.getCurrentInstance(session.getServletContext()).getComponentInstanceOfType(SoftwareRegistrationService.class);
-  boolean canSKip = registrationService.canSkipRegister();
-
-  String registrationURL = (String)request.getAttribute("registrationURL");
-
-  String notReachable = (String)session.getAttribute("notReachable");
-   String errorCode = request.getParameter("error");
-  //
-  SkinService skinService = (SkinService) PortalContainer.getCurrentInstance(session.getServletContext()).getComponentInstanceOfType(SkinService.class);
+  SkinService skinService = PortalContainer.getCurrentInstance(session.getServletContext()).getComponentInstanceOfType(SkinService.class);
   String cssPath = skinService.getSkin("portal/SoftwareRegistration", "Default").getCSSPath();
+  boolean canSKip = registrationService.canSkipRegister();
+  String registrationURL = (String)request.getAttribute("registrationURL");
+  String notReachable = (String)session.getAttribute("notReachable");
+  String errorCode = request.getParameter("error");
 %>
 <html>
 <head>
-  <title>Register your Software</title>
-  <!-- -->
-  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <link href="<%=cssPath%>" rel="stylesheet" type="text/css"/>
-  <script type="text/javascript" src="/platform-extension/javascript/jquery-1.7.1.js"></script>
-  <script type="text/javascript" src="/registrationPLF/javascript/registration/software-registration.js"></script>
+  <%@include file="registrationPLFHead.jsp"%>
 </head>
 <body class="modal-open">
   <div class="UIPopupWindow uiPopup UIDragObject popupDarkStyle">
     <div class="popupHeader ClearFix">
-        <span class="popupTitle center">Register your Software</span>
+        <span class="popupTitle center"><%=session.getAttribute(SoftwareRegisterViewServlet.PLF_REG_LABEL_REGISTER)%></span>
     </div>
     <div class="popupContent">
       <%@include file="PLFRegistrationIntro.jsp"%> 
       <% if(errorCode!=null){ %>
-      <div class="alert alert-warning"><i class="uiIconWarning"></i>The registration process has been cancelled. Please try again or contact the <a href="http://support.exoplatform.com"> support.</a></div>
+      <div class="alert alert-warning"><i class="uiIconWarning"></i><%=session.getAttribute(SoftwareRegisterViewServlet.PLF_REG_LABEL_WARNING_CANCEL)%> <a href="http://support.exoplatform.com"> <%=session.getAttribute(SoftwareRegisterViewServlet.PLF_REG_LABEL_SUPPORT)%></a></div>
       <%}%>
       <%if("true".equals(notReachable)){%>
-        <div class="alert alert-error"><i class="uiIconError"></i>The registration process could not complete. Please try again or contact the <a href="http://support.exoplatform.com"> support.</a></div>
+        <div class="alert alert-error"><i class="uiIconError"></i><%=session.getAttribute(SoftwareRegisterViewServlet.PLF_REG_LABEL_WARNING_NOT_COMPLETE)%> <a href="http://support.exoplatform.com"> <%=session.getAttribute(SoftwareRegisterViewServlet.PLF_REG_LABEL_SUPPORT)%></a></div>
       <% session.removeAttribute("notReachable"); }%>
-      <div class="signin-regis-title" style="display:none;"><strong>Sign in and register your installation on the Tribe</strong></div>
+      <div class="signin-regis-title" style="display:none;"><strong><%=session.getAttribute(SoftwareRegisterViewServlet.PLF_REG_LABEL_SIGN_IN_REG)%></strong></div>
       <img src="/eXoSkin/skin/images/themes/default/platform/portlets/extensions/tribe1.png" class="img-responsive imgNoInternet" style="display: none;"/>
       <img src="/eXoSkin/skin/images/themes/default/platform/portlets/extensions/tribe2.png" class="img-responsive imgHasInternet" style="display: none;" />
       <div class="not-connected" style="display: none;">
-        <div class="text-center"><strong>Well, about that...</strong></div>
-        <div class="text-center">It seems we cannot reach the eXo Tribe at the moment. You can skip this step and register your software at the next start.</div>
+        <div class="text-center"><strong><%=session.getAttribute(SoftwareRegisterViewServlet.PLF_REG_LABEL_ABOUT_THAT)%></strong></div>
+        <div class="text-center"><%=session.getAttribute(SoftwareRegisterViewServlet.PLF_REG_LABEL_CANNOT_REACH)%></div>
       </div>
-      <div class="signin-title"><strong>Sign in to the eXo Tribe:</strong></div>
+      <div class="signin-title"><strong><%=session.getAttribute(SoftwareRegisterViewServlet.PLF_REG_LABEL_SIGN_IN)%></strong></div>
       <div class="loading-text"></div>
       <div class="plf-registration">
         
@@ -78,9 +67,9 @@
           
           <div class="uiAction" id="UIPortalLoginFormAction">
             <input class="btn" type="hidden" name="value" value="<%if("true".equals(notReachable)){%>notReachable<%}%>"/>
-            <a class="registrationURL btn btn-primary" href="<%=registrationURL%>" style="display: none;" >Register your software</a>
-            <input class="btn btn-primary" type="button" name="btnContinue" value="Continue" disabled="disabled" />
-            <input class="btn" type="button" name="btnSkip" value="Skip" <%if(!canSKip && !"true".equals(notReachable)){%>disabled="disabled"<%}%> />
+            <a class="registrationURL btn btn-primary" href="<%=registrationURL%>" style="display: none;" ><%=session.getAttribute(SoftwareRegisterViewServlet.PLF_REG_LABEL_REGISTER)%></a>
+            <input class="btn btn-primary" type="button" name="btnContinue" value="<%=session.getAttribute(SoftwareRegisterViewServlet.PLF_REG_LABEL_CONTINUE_BTN)%>" disabled="disabled" />
+            <input class="btn" type="button" name="btnSkip" value="<%=session.getAttribute(SoftwareRegisterViewServlet.PLF_REG_LABEL_SKIP_BTN)%>" <%if(!canSKip && !"true".equals(notReachable)){%>disabled="disabled"<%}%> />
           </div>
           
         </form>
