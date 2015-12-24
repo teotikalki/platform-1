@@ -55,7 +55,7 @@
         <servlet-name>SoftwareRegisterActionServlet</servlet-name>
         <servlet-class>org.exoplatform.platform.common.software.register.web.SoftwareRegisterActionServlet</servlet-class>
     </servlet>
-    
+
     <servlet-mapping>
         <servlet-name>TermsAndConditionsViewServlet</servlet-name>
         <url-pattern>/terms-and-conditions</url-pattern>

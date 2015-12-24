@@ -42,24 +42,24 @@
 <body class="modal-open">
   <div class="UIPopupWindow uiPopup UIDragObject popupDarkStyle">
     <div class="popupHeader ClearFix">
-        <span class="popupTitle center"><%=session.getAttribute(SoftwareRegisterViewServlet.PLF_REG_LABEL_REGISTER)%></span>
+        <span class="popupTitle center"><fmt:message key="<%=SoftwareRegisterViewServlet.PLF_REG_LABEL_REGISTER%>"/></span>
     </div>
     <div class="popupContent">
       <%@include file="PLFRegistrationIntro.jsp"%> 
       <% if(errorCode!=null){ %>
-      <div class="alert alert-warning"><i class="uiIconWarning"></i><%=session.getAttribute(SoftwareRegisterViewServlet.PLF_REG_LABEL_WARNING_CANCEL)%> <a href="http://support.exoplatform.com"> <%=session.getAttribute(SoftwareRegisterViewServlet.PLF_REG_LABEL_SUPPORT)%></a></div>
+      <div class="alert alert-warning"><i class="uiIconWarning"></i><fmt:message key="<%=SoftwareRegisterViewServlet.PLF_REG_LABEL_WARNING_CANCEL%>"/> <a href="http://support.exoplatform.com"> <fmt:message key="<%=SoftwareRegisterViewServlet.PLF_REG_LABEL_SUPPORT%>"/></a></div>
       <%}%>
       <%if("true".equals(notReachable)){%>
-        <div class="alert alert-error"><i class="uiIconError"></i><%=session.getAttribute(SoftwareRegisterViewServlet.PLF_REG_LABEL_WARNING_NOT_COMPLETE)%> <a href="http://support.exoplatform.com"> <%=session.getAttribute(SoftwareRegisterViewServlet.PLF_REG_LABEL_SUPPORT)%></a></div>
+        <div class="alert alert-error"><i class="uiIconError"></i><fmt:message key="<%=SoftwareRegisterViewServlet.PLF_REG_LABEL_WARNING_NOT_COMPLETE%>"/> <a href="http://support.exoplatform.com"> <fmt:message key="<%=SoftwareRegisterViewServlet.PLF_REG_LABEL_SUPPORT%>"/></a></div>
       <% session.removeAttribute("notReachable"); }%>
-      <div class="signin-regis-title" style="display:none;"><strong><%=session.getAttribute(SoftwareRegisterViewServlet.PLF_REG_LABEL_SIGN_IN_REG)%></strong></div>
+      <div class="signin-regis-title" style="display:none;"><strong><fmt:message key="<%=SoftwareRegisterViewServlet.PLF_REG_LABEL_SIGN_IN_REG%>"/></strong></div>
       <img src="/eXoSkin/skin/images/themes/default/platform/portlets/extensions/tribe1.png" class="img-responsive imgNoInternet" style="display: none;"/>
       <img src="/eXoSkin/skin/images/themes/default/platform/portlets/extensions/tribe2.png" class="img-responsive imgHasInternet" style="display: none;" />
       <div class="not-connected" style="display: none;">
-        <div class="text-center"><strong><%=session.getAttribute(SoftwareRegisterViewServlet.PLF_REG_LABEL_ABOUT_THAT)%></strong></div>
-        <div class="text-center"><%=session.getAttribute(SoftwareRegisterViewServlet.PLF_REG_LABEL_CANNOT_REACH)%></div>
+        <div class="text-center"><strong><fmt:message key="<%=SoftwareRegisterViewServlet.PLF_REG_LABEL_ABOUT_THAT%>"/></strong></div>
+        <div class="text-center"><fmt:message key="<%=SoftwareRegisterViewServlet.PLF_REG_LABEL_CANNOT_REACH%>"/></div>
       </div>
-      <div class="signin-title"><strong><%=session.getAttribute(SoftwareRegisterViewServlet.PLF_REG_LABEL_SIGN_IN)%></strong></div>
+      <div class="signin-title"><strong><fmt:message key="<%=SoftwareRegisterViewServlet.PLF_REG_LABEL_SIGN_IN%>"/></strong></div>
       <div class="loading-text"></div>
       <div class="plf-registration">
         
@@ -67,9 +67,9 @@
           
           <div class="uiAction" id="UIPortalLoginFormAction">
             <input class="btn" type="hidden" name="value" value="<%if("true".equals(notReachable)){%>notReachable<%}%>"/>
-            <a class="registrationURL btn btn-primary" href="<%=registrationURL%>" style="display: none;" ><%=session.getAttribute(SoftwareRegisterViewServlet.PLF_REG_LABEL_REGISTER)%></a>
-            <input class="btn btn-primary" type="button" name="btnContinue" value="<%=session.getAttribute(SoftwareRegisterViewServlet.PLF_REG_LABEL_CONTINUE_BTN)%>" disabled="disabled" />
-            <input class="btn" type="button" name="btnSkip" value="<%=session.getAttribute(SoftwareRegisterViewServlet.PLF_REG_LABEL_SKIP_BTN)%>" <%if(!canSKip && !"true".equals(notReachable)){%>disabled="disabled"<%}%> />
+            <a class="registrationURL btn btn-primary" href="<%=registrationURL%>" style="display: none;" ><fmt:message key="<%=SoftwareRegisterViewServlet.PLF_REG_LABEL_REGISTER%>"/></a>
+            <input class="btn btn-primary" type="button" name="btnContinue" value="<fmt:message key="<%=SoftwareRegisterViewServlet.PLF_REG_LABEL_CONTINUE_BTN%>"/>" disabled="disabled" />
+            <input class="btn" type="button" name="btnSkip" value="<fmt:message key="<%=SoftwareRegisterViewServlet.PLF_REG_LABEL_SKIP_BTN%>"/>" <%if(!canSKip && !"true".equals(notReachable)){%>disabled="disabled"<%}%> />
           </div>
           
         </form>

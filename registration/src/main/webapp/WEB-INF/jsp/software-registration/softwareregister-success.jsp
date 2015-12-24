@@ -39,16 +39,16 @@
 <body  class="modal-open">
   <div class="UIPopupWindow uiPopup UIDragObject popupDarkStyle">
     <div class="popupHeader ClearFix">
-        <span class="popupTitle center"><%=session.getAttribute(SoftwareRegisterViewServlet.PLF_REG_LABEL_REGISTER)%></span>
+        <span class="popupTitle center"><fmt:message key="<%=SoftwareRegisterViewServlet.PLF_REG_LABEL_REGISTER%>"/></span>
     </div> 
     <div class="popupContent">
       <%@include file="PLFRegistrationIntro.jsp"%>
 
-      <div class="alert alert-success"><i class="uiIconSuccess"></i><strong>&nbsp;<%=session.getAttribute(SoftwareRegisterViewServlet.PLF_REG_LABEL_THANK)%></strong><%=session.getAttribute(SoftwareRegisterViewServlet.PLF_REG_LABEL_SUCCESS)%></div>
+      <div class="alert alert-success"><i class="uiIconSuccess"></i><strong><fmt:message key="<%=SoftwareRegisterViewServlet.PLF_REG_LABEL_THANK%>"/></strong>&nbsp;<fmt:message key="<%=SoftwareRegisterViewServlet.PLF_REG_LABEL_SUCCESS%>"/></div>
       <img src="/eXoSkin/skin/images/themes/default/platform/portlets/extensions/tribe3.png" class="img-responsive"/>
       <div class="uiAction">
         <form id="frmSoftwareRegistration" action="<%=contextPath+"/software-register-action"%>" method="post">
-          <input class="btn btn-primary" type="button" name="btnContinue" value="<%=session.getAttribute(SoftwareRegisterViewServlet.PLF_REG_LABEL_CONTINUE_BTN)%>"/>
+          <input class="btn btn-primary" type="button" name="btnContinue" value="<fmt:message key="<%=SoftwareRegisterViewServlet.PLF_REG_LABEL_CONTINUE_BTN%>"/>"/>
         </form>
       </div>
     </div>

@@ -1,15 +1,10 @@
 package org.exoplatform.platform.common.software.register.web;
 
-import org.exoplatform.platform.common.software.register.service.SoftwareRegistrationService;
-import org.exoplatform.services.wcm.utils.WCMCoreUtils;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.ResourceBundle;
 
 /**
  * Created by The eXo Platform SEA
@@ -43,7 +38,6 @@ public class SoftwareRegisterViewServlet extends HttpServlet {
     String registrationULR = SoftwareRegisterAuthViewServlet.getRegistrationURL(request);
     request.setAttribute("registrationURL", registrationULR);
     request.getSession().setAttribute("registrationURL", registrationULR);
-    initResourceBundle(request);
     getServletContext().getRequestDispatcher(SR_JSP_RESOURCE).forward(request, response);
   }
 
@@ -52,26 +46,4 @@ public class SoftwareRegisterViewServlet extends HttpServlet {
     doPost(request, response);
   }
 
-  /**
-   * mapping resource bundle to request
-   * @param request
-   */
-  private void initResourceBundle(HttpServletRequest request){
-    ResourceBundle rb = ResourceBundle.getBundle("locale.platform.RegistrationPLF", request.getLocale());
-    HttpSession session = request.getSession();
-    session.setAttribute(PLF_REG_LABEL_INTRO, rb.getString(PLF_REG_LABEL_INTRO)
-        .replace("{0}", "<a class=\"firstText\" href=\"https://community.exoplatform.com\" >eXo Tribe</a>"));
-    session.setAttribute(PLF_REG_LABEL_WARNING_CANCEL, rb.getString(PLF_REG_LABEL_WARNING_CANCEL));
-    session.setAttribute(PLF_REG_LABEL_WARNING_NOT_COMPLETE, rb.getString(PLF_REG_LABEL_WARNING_NOT_COMPLETE));
-    session.setAttribute(PLF_REG_LABEL_SUPPORT, rb.getString(PLF_REG_LABEL_SUPPORT));
-    session.setAttribute(PLF_REG_LABEL_SIGN_IN_REG, rb.getString(PLF_REG_LABEL_SIGN_IN_REG));
-    session.setAttribute(PLF_REG_LABEL_ABOUT_THAT, rb.getString(PLF_REG_LABEL_ABOUT_THAT));
-    session.setAttribute(PLF_REG_LABEL_CANNOT_REACH, rb.getString(PLF_REG_LABEL_CANNOT_REACH));
-    session.setAttribute(PLF_REG_LABEL_SIGN_IN, rb.getString(PLF_REG_LABEL_SIGN_IN));
-    session.setAttribute(PLF_REG_LABEL_REGISTER, rb.getString(PLF_REG_LABEL_REGISTER));
-    session.setAttribute(PLF_REG_LABEL_CONTINUE_BTN, rb.getString(PLF_REG_LABEL_CONTINUE_BTN));
-    session.setAttribute(PLF_REG_LABEL_SKIP_BTN, rb.getString(PLF_REG_LABEL_SKIP_BTN));
-    session.setAttribute(PLF_REG_LABEL_THANK, rb.getString(PLF_REG_LABEL_THANK));
-    session.setAttribute(PLF_REG_LABEL_SUCCESS, rb.getString(PLF_REG_LABEL_SUCCESS));
-  }
 }
