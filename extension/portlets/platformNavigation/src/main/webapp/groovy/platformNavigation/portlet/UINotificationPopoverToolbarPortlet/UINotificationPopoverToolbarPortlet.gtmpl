@@ -27,7 +27,10 @@
 				<ul class="displayItems">
 				</ul>
 			</li>
-			<li class="actionLink"><div><a class="btn" href="/portal/intranet/allNotifications/"><%=_ctx.appRes("UINotificationPopoverToolbarPortlet.label.ViewAll") %></a></div></li>
+			<%
+			String currentSite = uicomponent.getCurrentSiteName();
+			%>
+			<li class="actionLink"><div><a class="btn" href="/portal/$currentSite/allNotifications/"><%=_ctx.appRes("UINotificationPopoverToolbarPortlet.label.ViewAll") %></a></div></li>
 		</ul>
 	</div>
 </div>

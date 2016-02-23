@@ -32,6 +32,7 @@ import org.exoplatform.webui.event.EventListener;
 import org.exoplatform.ws.frameworks.cometd.ContinuationService;
 import org.json.JSONObject;
 import org.mortbay.cometd.continuation.EXoContinuationBayeux;
+import org.exoplatform.portal.webui.util.Util;
 
 @ComponentConfig(
     lifecycle = UIApplicationLifecycle.class,
@@ -54,13 +55,14 @@ public class UINotificationPopoverToolbarPortlet extends UIPortletApplication {
   private int maxItemsInPopover;
   private String currentUser = "";
 
+
   public UINotificationPopoverToolbarPortlet() throws Exception {
     webNftService = getApplicationComponent(WebNotificationService.class);
     userSettingService = getApplicationComponent(UserSettingService.class);
     continuation = getApplicationComponent(ContinuationService.class);
     bayeux = getApplicationComponent(EXoContinuationBayeux.class);
   }
-  
+
   @Override
   public void processRender(WebuiApplication app, WebuiRequestContext context) throws Exception {
     this.currentUser = context.getRemoteUser();
@@ -77,7 +79,10 @@ public class UINotificationPopoverToolbarPortlet extends UIPortletApplication {
     //
     super.processRender(app, context);
   }
-
+public String getCurrentSiteName() {
+  PortalRequestContext portalRequestContext = Util.getPortalRequestContext();
+  return portalRequestContext.getSiteName();
+}
   @Override
   public void serveResource(WebuiRequestContext context) throws Exception {
     super.serveResource(context);
