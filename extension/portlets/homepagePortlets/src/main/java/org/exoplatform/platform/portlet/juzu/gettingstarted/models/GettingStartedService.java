@@ -22,8 +22,6 @@ import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.query.Query;
 
-import org.chromattic.api.ChromatticSession;
-import org.exoplatform.commons.chromattic.ChromatticManager;
 import org.exoplatform.commons.utils.CommonsUtils;
 import org.exoplatform.container.ExoContainerContext;
 import org.exoplatform.container.PortalContainer;
@@ -31,11 +29,13 @@ import org.exoplatform.services.jcr.ext.common.SessionProvider;
 import org.exoplatform.services.jcr.impl.core.query.QueryImpl;
 import org.exoplatform.services.log.ExoLogger;
 import org.exoplatform.services.log.Log;
-import org.exoplatform.social.common.lifecycle.SocialChromatticLifeCycle;
 import org.exoplatform.social.core.identity.model.Identity;
 import org.exoplatform.social.core.identity.model.Profile;
 import org.exoplatform.social.core.identity.provider.OrganizationIdentityProvider;
+import org.exoplatform.social.core.manager.ActivityManager;
 import org.exoplatform.social.core.manager.IdentityManager;
+import org.exoplatform.social.core.manager.RelationshipManager;
+import org.exoplatform.social.core.space.spi.SpaceService;
 
 /**
  * @author <a href="fbradai@exoplatform.com">Fbradai</a>
@@ -43,12 +43,6 @@ import org.exoplatform.social.core.manager.IdentityManager;
  */
 public class GettingStartedService {
     private static final Log LOG = ExoLogger.getLogger(GettingStartedService.class);
-    
-    private static final String ORGANIZATION_PREFIXE_PATH = "/production/soc:providers/soc:organization/soc:%s";
-    private static final String ACTIVITIES_NODE_TYPE = "soc:activities";
-    private static final String RELATIONSHIP_NODE_TYPE = "soc:relationship";
-    private static final String SPACE_MEMBER_NODE_TYPE = "soc:spacemember";
-    private static final String NUMBER_ACTIVITIES_PROPERTY = "soc:number";
 
     public static Boolean hasDocuments(Node node, String userId) {
         SessionProvider sProvider = null;
@@ -92,43 +86,48 @@ public class GettingStartedService {
         }
     }
 
-    @SuppressWarnings("deprecation")
     public static boolean hasSpaces(String userId) {
-      return hasChildren(userId, SPACE_MEMBER_NODE_TYPE);
-    }
-
-    @SuppressWarnings("deprecation")
-    public static boolean hasActivities(String userId) {
-      return hasChildren(userId, ACTIVITIES_NODE_TYPE);
-    }
-
-    @SuppressWarnings("deprecation")
-    public static boolean hasContacts(String userId) {
-      return hasChildren(userId, RELATIONSHIP_NODE_TYPE);
-    }
-    
-    private static boolean hasChildren(String userId, String nodeType) {
-      String userPath = String.format(ORGANIZATION_PREFIXE_PATH, userId);
-      ChromatticSession session = lifecycleLookup().getSession();
+      SpaceService spaceService = getService(SpaceService.class);
+      
       try {
-        Node node = (Node) session.getJCRSession().getItem(userPath + "/" + nodeType);
-        if (! nodeType.equals(ACTIVITIES_NODE_TYPE)) {
-          return node.hasNodes();
-        }
-        if (node.hasProperty(NUMBER_ACTIVITIES_PROPERTY)) {
-          return node.getProperty(NUMBER_ACTIVITIES_PROPERTY).getLong() > 0;
-        }
-      } catch (Exception e) {
-        LOG.debug("Failed to get user node " + e.getMessage(), e);
+        return spaceService.getAccessibleSpacesWithListAccess(userId).getSize() > 0;
+      } catch (Exception ex) {
+        LOG.error(ex);
+        return false;
       }
-      return false;
     }
-    
-    public static SocialChromatticLifeCycle lifecycleLookup() {
 
+    private static <T> T getService(Class<T> serviceClass) {
       PortalContainer container = PortalContainer.getInstance();
-      ChromatticManager manager = (ChromatticManager) container.getComponentInstanceOfType(ChromatticManager.class);
-      return (SocialChromatticLifeCycle) manager.getLifeCycle(SocialChromatticLifeCycle.SOCIAL_LIFECYCLE_NAME);
+      return container.getComponentInstanceOfType(serviceClass);
+    }
 
+    public static boolean hasActivities(String userId) {
+      IdentityManager identityManager = getService(IdentityManager.class);
+      Identity identity = identityManager.getOrCreateIdentity(OrganizationIdentityProvider.NAME, userId, false);
+      
+      if (identity != null) {
+        ActivityManager activityManager = getService(ActivityManager.class);
+        return activityManager.getActivitiesWithListAccess(identity).getSize() > 0;        
+      } else {
+        return false;
+      }
+    }
+
+    public static boolean hasContacts(String userId) {
+      IdentityManager identityManager = getService(IdentityManager.class);
+      Identity identity = identityManager.getOrCreateIdentity(OrganizationIdentityProvider.NAME, userId, false);
+      
+      if (identity != null) {
+        RelationshipManager relManager = getService(RelationshipManager.class);
+        try {
+          return relManager.getConnections(identity).getSize() > 0;          
+        } catch (Exception ex) {
+          LOG.error(ex);
+          return false;
+        }
+      } else {
+        return false;
+      }
     }
 }
