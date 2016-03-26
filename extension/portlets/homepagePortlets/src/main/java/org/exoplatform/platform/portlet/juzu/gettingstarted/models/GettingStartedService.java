@@ -92,7 +92,7 @@ public class GettingStartedService {
       try {
         return spaceService.getAccessibleSpacesWithListAccess(userId).getSize() > 0;
       } catch (Exception ex) {
-        LOG.error(ex);
+        LOG.error("Can't get space number. Error during get accessible spaces", ex);
         return false;
       }
     }
@@ -123,7 +123,7 @@ public class GettingStartedService {
         try {
           return relManager.getConnections(identity).getSize() > 0;          
         } catch (Exception ex) {
-          LOG.error(ex);
+          LOG.error("Error during get connections", ex);
           return false;
         }
       } else {
