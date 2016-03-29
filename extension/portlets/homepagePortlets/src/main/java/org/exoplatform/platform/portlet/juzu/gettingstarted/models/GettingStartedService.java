@@ -23,18 +23,22 @@ import javax.jcr.RepositoryException;
 import javax.jcr.query.Query;
 
 import org.exoplatform.commons.utils.CommonsUtils;
+import org.exoplatform.commons.utils.ListAccess;
 import org.exoplatform.container.ExoContainerContext;
 import org.exoplatform.container.PortalContainer;
 import org.exoplatform.services.jcr.ext.common.SessionProvider;
 import org.exoplatform.services.jcr.impl.core.query.QueryImpl;
 import org.exoplatform.services.log.ExoLogger;
 import org.exoplatform.services.log.Log;
+import org.exoplatform.social.common.RealtimeListAccess;
+import org.exoplatform.social.core.activity.model.ExoSocialActivity;
 import org.exoplatform.social.core.identity.model.Identity;
 import org.exoplatform.social.core.identity.model.Profile;
 import org.exoplatform.social.core.identity.provider.OrganizationIdentityProvider;
 import org.exoplatform.social.core.manager.ActivityManager;
 import org.exoplatform.social.core.manager.IdentityManager;
 import org.exoplatform.social.core.manager.RelationshipManager;
+import org.exoplatform.social.core.space.model.Space;
 import org.exoplatform.social.core.space.spi.SpaceService;
 
 /**
@@ -90,11 +94,14 @@ public class GettingStartedService {
       SpaceService spaceService = getService(SpaceService.class);
       
       try {
-        return spaceService.getAccessibleSpacesWithListAccess(userId).getSize() > 0;
+        ListAccess<Space> spaces = spaceService.getAccessibleSpacesWithListAccess(userId);
+        if (spaces != null) {
+          return spaces.getSize() > 0;    
+        }
       } catch (Exception ex) {
         LOG.error("Can't get space number. Error during get accessible spaces", ex);
-        return false;
       }
+      return false;
     }
 
     private static <T> T getService(Class<T> serviceClass) {
@@ -108,10 +115,13 @@ public class GettingStartedService {
       
       if (identity != null) {
         ActivityManager activityManager = getService(ActivityManager.class);
-        return activityManager.getActivitiesWithListAccess(identity).getSize() > 0;        
-      } else {
-        return false;
+        RealtimeListAccess<ExoSocialActivity> activities = activityManager.getActivitiesWithListAccess(identity);
+        if (activities != null) {
+          return activities.getSize() > 0;          
+        }
       }
+      
+      return false;
     }
 
     public static boolean hasContacts(String userId) {
@@ -121,13 +131,15 @@ public class GettingStartedService {
       if (identity != null) {
         RelationshipManager relManager = getService(RelationshipManager.class);
         try {
-          return relManager.getConnections(identity).getSize() > 0;          
+          ListAccess<Identity> identities = relManager.getConnections(identity); 
+          if (identities != null) {
+            return identities.getSize() > 0;            
+          }
         } catch (Exception ex) {
           LOG.error("Error during get connections", ex);
-          return false;
         }
-      } else {
-        return false;
       }
+
+      return false;
     }
 }
