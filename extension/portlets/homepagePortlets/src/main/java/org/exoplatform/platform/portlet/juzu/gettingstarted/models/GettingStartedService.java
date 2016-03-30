@@ -18,6 +18,7 @@
  */
 package org.exoplatform.platform.portlet.juzu.gettingstarted.models;
 
+import javax.inject.Inject;
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.query.Query;
@@ -25,7 +26,6 @@ import javax.jcr.query.Query;
 import org.exoplatform.commons.utils.CommonsUtils;
 import org.exoplatform.commons.utils.ListAccess;
 import org.exoplatform.container.ExoContainerContext;
-import org.exoplatform.container.PortalContainer;
 import org.exoplatform.services.jcr.ext.common.SessionProvider;
 import org.exoplatform.services.jcr.impl.core.query.QueryImpl;
 import org.exoplatform.services.log.ExoLogger;
@@ -46,9 +46,21 @@ import org.exoplatform.social.core.space.spi.SpaceService;
  * @date 12/26/12
  */
 public class GettingStartedService {
+    @Inject
+    private SpaceService spaceService;
+    
+    @Inject
+    private IdentityManager identityManager;
+    
+    @Inject 
+    private RelationshipManager relManager;
+    
+    @Inject
+    private ActivityManager activityManager;
+    
     private static final Log LOG = ExoLogger.getLogger(GettingStartedService.class);
 
-    public static Boolean hasDocuments(Node node, String userId) {
+    public Boolean hasDocuments(Node node, String userId) {
         SessionProvider sProvider = null;
         try {
           sProvider = SessionProvider.createSystemProvider();
@@ -72,7 +84,7 @@ public class GettingStartedService {
     }
 
     @SuppressWarnings("deprecation")
-    public static boolean hasAvatar(String userId) {
+    public boolean hasAvatar(String userId) {
         try {
             IdentityManager identityManager = (IdentityManager) ExoContainerContext.getCurrentContainer()
                     .getComponentInstanceOfType(IdentityManager.class);
@@ -90,9 +102,7 @@ public class GettingStartedService {
         }
     }
 
-    public static boolean hasSpaces(String userId) {
-      SpaceService spaceService = getService(SpaceService.class);
-      
+    public boolean hasSpaces(String userId) {
       try {
         ListAccess<Space> spaces = spaceService.getAccessibleSpacesWithListAccess(userId);
         if (spaces != null) {
@@ -104,17 +114,10 @@ public class GettingStartedService {
       return false;
     }
 
-    private static <T> T getService(Class<T> serviceClass) {
-      PortalContainer container = PortalContainer.getInstance();
-      return container.getComponentInstanceOfType(serviceClass);
-    }
-
-    public static boolean hasActivities(String userId) {
-      IdentityManager identityManager = getService(IdentityManager.class);
+    public boolean hasActivities(String userId) {
       Identity identity = identityManager.getOrCreateIdentity(OrganizationIdentityProvider.NAME, userId, false);
       
       if (identity != null) {
-        ActivityManager activityManager = getService(ActivityManager.class);
         RealtimeListAccess<ExoSocialActivity> activities = activityManager.getActivitiesWithListAccess(identity);
         if (activities != null) {
           return activities.getSize() > 0;          
@@ -124,12 +127,10 @@ public class GettingStartedService {
       return false;
     }
 
-    public static boolean hasContacts(String userId) {
-      IdentityManager identityManager = getService(IdentityManager.class);
+    public boolean hasContacts(String userId) {
       Identity identity = identityManager.getOrCreateIdentity(OrganizationIdentityProvider.NAME, userId, false);
       
       if (identity != null) {
-        RelationshipManager relManager = getService(RelationshipManager.class);
         try {
           ListAccess<Identity> identities = relManager.getConnections(identity); 
           if (identities != null) {
