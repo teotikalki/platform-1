@@ -1,21 +1,13 @@
 package org.exoplatform.platform.common.rest.services.SuggestPeoplePortlet;
 
-import org.exoplatform.common.http.HTTPStatus;
-import org.exoplatform.commons.utils.ListAccess;
-import org.exoplatform.portal.config.UserACL;
-import org.exoplatform.services.log.ExoLogger;
-import org.exoplatform.services.log.Log;
-import org.exoplatform.services.rest.impl.RuntimeDelegateImpl;
-import org.exoplatform.services.rest.resource.ResourceContainer;
-import org.exoplatform.social.core.identity.model.Identity;
-import org.exoplatform.social.core.identity.model.Profile;
-import org.exoplatform.social.core.identity.provider.OrganizationIdentityProvider;
-import org.exoplatform.social.core.manager.IdentityManager;
-import org.exoplatform.social.core.manager.RelationshipManager;
-import org.exoplatform.social.core.relationship.model.Relationship;
-import org.json.JSONArray;
-import org.json.JSONObject;
-
+import java.net.URI;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -27,16 +19,30 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.ext.RuntimeDelegate;
-import java.net.URI;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
+import org.apache.commons.lang.StringUtils;
+import org.exoplatform.common.http.HTTPStatus;
+import org.exoplatform.commons.utils.ListAccess;
+import org.exoplatform.portal.config.UserACL;
+import org.exoplatform.services.log.ExoLogger;
+import org.exoplatform.services.log.Log;
+import org.exoplatform.services.organization.OrganizationService;
+import org.exoplatform.services.organization.UserProfile;
+import org.exoplatform.services.rest.impl.RuntimeDelegateImpl;
+import org.exoplatform.services.rest.resource.ResourceContainer;
+import org.exoplatform.social.core.identity.model.Identity;
+import org.exoplatform.social.core.identity.model.Profile;
+import org.exoplatform.social.core.identity.provider.OrganizationIdentityProvider;
+import org.exoplatform.social.core.manager.IdentityManager;
+import org.exoplatform.social.core.manager.RelationshipManager;
+import org.exoplatform.social.core.relationship.model.Relationship;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 @Path("/homepage/intranet/people/")
 @Produces("application/json")
 public class PeopleRestServices implements ResourceContainer {
+
+  private static final String SKIPPED_SUGGESTIONS_ATTR_NAME = "skipSugg";
 
   private static Log log = ExoLogger.getLogger(PeopleRestServices.class);
 
@@ -50,6 +56,7 @@ public class PeopleRestServices implements ResourceContainer {
 
   private  RelationshipManager relationshipManager;
 
+  private  OrganizationService organizationService;
 
   static {
     RuntimeDelegate.setInstance(new RuntimeDelegateImpl());
@@ -57,10 +64,11 @@ public class PeopleRestServices implements ResourceContainer {
     cacheControl.setNoCache(true);
     cacheControl.setNoStore(true);
   }
-  public PeopleRestServices(UserACL userACL, IdentityManager identityManager,  RelationshipManager relationshipManager) {
+  public PeopleRestServices(UserACL userACL, IdentityManager identityManager,  RelationshipManager relationshipManager, OrganizationService organizationService) {
     this.userACL = userACL;
     this.identityManager = identityManager;
     this.relationshipManager =  relationshipManager;
+    this.organizationService =  organizationService;
 
   }
 
@@ -219,11 +227,35 @@ public class PeopleRestServices implements ResourceContainer {
   }
 
   @GET
+  @Path("contacts/ignore/{userId}")
+  public Response ignore(@PathParam("userId") String ignoredUserId, @Context SecurityContext sc, @Context UriInfo uriInfo) {
+    try {
+      String userId = getUserId(sc, uriInfo);
+      if (userId == null) {
+        return Response.status(HTTPStatus.INTERNAL_ERROR).cacheControl(cacheControl).build();
+      }
+      UserProfile profile = organizationService.getUserProfileHandler().findUserProfileByName(userId);
+      if (profile == null) {
+          profile = organizationService.getUserProfileHandler().createUserProfileInstance(userId);
+      }
+      String skippedSuggAttrName = SKIPPED_SUGGESTIONS_ATTR_NAME + ignoredUserId;
+      String skippedSuggestions = profile.getAttribute(skippedSuggAttrName);
+      if (StringUtils.isBlank(skippedSuggestions)) {
+        profile.setAttribute(skippedSuggAttrName, "true");
+        organizationService.getUserProfileHandler().saveUserProfile(profile, false);
+      }
+      return Response.ok("Ignored", MediaType.APPLICATION_JSON).cacheControl(cacheControl).build();
+    } catch (Exception e) {
+      log.error("Error in suggestion ignore rest service: " + e.getMessage(), e);
+      return Response.ok("Error", MediaType.APPLICATION_JSON).cacheControl(cacheControl).build();
+    }
+
+  }
+
+  @GET
   @Path("contacts/suggestions")
   public Response getSuggestions(@Context SecurityContext sc, @Context UriInfo uriInfo) {
-
     try {
-
       String userId = getUserId(sc, uriInfo);
       if (userId == null) {
         return Response.status(HTTPStatus.INTERNAL_ERROR).cacheControl(cacheControl).build();
@@ -256,8 +288,25 @@ public class PeopleRestServices implements ResourceContainer {
           suggestions.put(id, new Integer(0));
         }
       }
+      UserProfile profile = organizationService.getUserProfileHandler().findUserProfileByName(userId);
+      Set<String> skippedSuggestionsSet = new HashSet<String>();
+      if (profile != null) {
+        Set<String> skippedSuggestions = profile.getUserInfoMap().keySet();
+        if (skippedSuggestions != null && !skippedSuggestions.isEmpty()) {
+          for (String attrName : skippedSuggestions) {
+            if(attrName.startsWith(SKIPPED_SUGGESTIONS_ATTR_NAME)) {
+              skippedSuggestionsSet.add(attrName.replace(SKIPPED_SUGGESTIONS_ATTR_NAME, ""));
+            }
+          }
+        }
+      }
+
       for (Entry<Identity, Integer> suggestion : suggestions.entrySet()) {
         Identity id = suggestion.getKey();
+
+        if (skippedSuggestionsSet != null && skippedSuggestionsSet.contains(id.getId())) {
+          continue;
+        }
 
         if (id.getRemoteId().equals(userACL.getSuperUser())) continue;
         JSONObject json = new JSONObject();

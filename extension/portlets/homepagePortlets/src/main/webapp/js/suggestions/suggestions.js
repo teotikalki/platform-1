@@ -135,7 +135,7 @@
                     });
 
                     $("#"+item.suggestionId+" a.ignore").live("click", function(){
-                        //$.getJSON("/rest/homepage/intranet/people/contacts/ignore/"+item.suggestionId, null);
+                        $.getJSON("/rest/homepage/intranet/people/contacts/ignore/"+item.suggestionId, null);
                         if($("#suggestions").children().length == 1) {
                             $("#peopleSuggest").fadeOut(500, function () {
                                 $("#"+item.relationId).remove();

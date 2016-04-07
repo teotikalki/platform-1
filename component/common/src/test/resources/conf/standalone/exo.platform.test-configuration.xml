@@ -63,5 +63,9 @@
    <component>
       <type>org.exoplatform.services.rest.impl.ResourceBinder</type>
    </component>
+   <component>
+      <key>org.exoplatform.services.organization.OrganizationService</key>
+      <type>org.exoplatform.services.organization.impl.mock.DummyOrganizationService</type>
+   </component>
 
 </configuration>
