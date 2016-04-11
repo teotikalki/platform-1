@@ -196,6 +196,26 @@ public class PeopleRestServices implements ResourceContainer {
   }
 
   @GET
+  @Path("contacts/ignore/{relationId}")
+  public Response ignore(@PathParam("relationId") String relationId, @Context SecurityContext sc, @Context UriInfo uriInfo) {
+    try {
+      String userId = getUserId(sc, uriInfo);
+      if (userId == null) {
+        return Response.status(HTTPStatus.INTERNAL_ERROR).cacheControl(cacheControl).build();
+      }
+
+      Identity identity = identityManager.getOrCreateIdentity(OrganizationIdentityProvider.NAME, userId);
+
+      relationshipManager.ignore(identity, identityManager.getIdentity(relationId));
+
+      return Response.ok("done", MediaType.APPLICATION_JSON).cacheControl(cacheControl).build();
+    } catch (Exception e) {
+      log.error("Error in people connect rest service: " + e.getMessage(), e);
+      return Response.ok("Error", MediaType.APPLICATION_JSON).cacheControl(cacheControl).build();
+    }
+  }
+
+  @GET
   @Path("contacts/connect/{relationId}")
   public Response connect(@PathParam("relationId") String relationId, @Context SecurityContext sc, @Context UriInfo uriInfo) {
 
