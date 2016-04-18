@@ -57,6 +57,7 @@ import org.exoplatform.services.organization.User;
 import org.exoplatform.services.organization.UserEventListener;
 import org.exoplatform.services.organization.UserProfile;
 import org.exoplatform.services.organization.UserProfileEventListener;
+import org.exoplatform.services.organization.idm.PicketLinkIDMCacheService;
 import org.exoplatform.services.organization.impl.GroupImpl;
 import org.exoplatform.services.organization.impl.MembershipImpl;
 import org.exoplatform.services.organization.impl.UserImpl;
@@ -389,6 +390,9 @@ public class OrganizationIntegrationService implements Startable {
       LOG.debug("\tGroup listeners invocation, operation= " + eventType + ", for group= " + groupId);
     }
     EventType event = EventType.valueOf(eventType);
+    // Invalidate plidmcache
+    PicketLinkIDMCacheService picketLinkIDMCacheService = (PicketLinkIDMCacheService) PortalContainer.getInstance().getComponentInstanceOfType(PicketLinkIDMCacheService.class);
+    picketLinkIDMCacheService.invalidateAll();
     switch (event) {
       case DELETED: {
         {
@@ -560,6 +564,9 @@ public class OrganizationIntegrationService implements Startable {
       LOG.debug("\tUser listeners invocation, operation= " + eventType + ", for user= " + username);
     }
     EventType event = EventType.valueOf(eventType);
+    // Invalidate plidmcache
+    PicketLinkIDMCacheService picketLinkIDMCacheService = (PicketLinkIDMCacheService) PortalContainer.getInstance().getComponentInstanceOfType(PicketLinkIDMCacheService.class);
+    picketLinkIDMCacheService.invalidateAll();
     switch (event) {
       case DELETED: {
         User user = null;
