@@ -102,6 +102,7 @@ public class OrganizationIntegrationService implements Startable {
   private RepositoryService repositoryService;
   private PortalContainer container;
   private boolean synchronizeGroups = false;
+  private PicketLinkIDMCacheService picketLinkIDMCacheService = (PicketLinkIDMCacheService) PortalContainer.getInstance().getComponentInstanceOfType(PicketLinkIDMCacheService.class);
 
   public OrganizationIntegrationService(OrganizationService organizationService, RepositoryService repositoryService,
       ConfigurationManager manager, PortalContainer container, InitParams initParams) {
@@ -391,7 +392,6 @@ public class OrganizationIntegrationService implements Startable {
     }
     EventType event = EventType.valueOf(eventType);
     // Invalidate plidmcache
-    PicketLinkIDMCacheService picketLinkIDMCacheService = (PicketLinkIDMCacheService) PortalContainer.getInstance().getComponentInstanceOfType(PicketLinkIDMCacheService.class);
     picketLinkIDMCacheService.invalidateAll();
     switch (event) {
       case DELETED: {
@@ -565,7 +565,6 @@ public class OrganizationIntegrationService implements Startable {
     }
     EventType event = EventType.valueOf(eventType);
     // Invalidate plidmcache
-    PicketLinkIDMCacheService picketLinkIDMCacheService = (PicketLinkIDMCacheService) PortalContainer.getInstance().getComponentInstanceOfType(PicketLinkIDMCacheService.class);
     picketLinkIDMCacheService.invalidateAll();
     switch (event) {
       case DELETED: {
