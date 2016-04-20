@@ -140,7 +140,7 @@
                             contentType: "application/json",
                             data: JSON.stringify({"sender": list.username,"receiver": item.username,"status":"IGNORED"}),
                             type: "POST"
-                            });
+                        });
 
                         if($("#suggestions").children().length == 1) {
                             $("#peopleSuggest").fadeOut(500, function () {
