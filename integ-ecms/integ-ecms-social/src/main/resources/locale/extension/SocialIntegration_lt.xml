@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bundle>
+  <UIConfirmMessage>
+    <label>
+      <ReadOnly>Open Read-only</ReadOnly>
+    </label>
+  </UIConfirmMessage>
+
+  <UISocialPopupWindow>
+    <title>
+      <UIReadOnlyFileConfirmMessage>Open Document</UIReadOnlyFileConfirmMessage>
+    </title>
+  </UISocialPopupWindow>
+  <SocialIntegration>
+    <titles>
+      <fileSize>Failo dydis</fileSize>
+    </titles>
+    <messages>
+      <createdBy>sukūrė</createdBy>
+      <editedBy>redagavo</editedBy>
+      <system>sistema</system>
+      <readmore>...Skaityti daugiau.</readmore>
+      <editTitle>Antraštė atnaujinta į: {0}</editTitle>
+      <editName>Pavadinimas atnaujintas į: {0}</editName>
+      <editDescription>Aprašymas atnaujintas į: {0}</editDescription>
+      <singleCreator>Kūrėjas yra {0}</singleCreator>
+      <multiCreator>Kūrėjai yra {0}</multiCreator>
+      <addSource>Failo šaltinis: {0} pridėtas</addSource>
+      <addMultiSource>Failo šaltiniai: {0} pridėti</addMultiSource>
+      <removeSource>Failo šaltinis: {0} pašalintas</removeSource>
+      <removeMultiSource>Failo šaltiniai: {0} pašalinti</removeMultiSource>
+      <editSummary>Santrauka atnaujinta į: {0}</editSummary>
+      <editLanguage>Kalba atnaujinta į: {0}</editLanguage>
+      <editContent>Turinys buvo atnaujintas.</editContent>
+      <editFile>Failas buvo atnaujintas.</editFile>
+      <emptyTitle>Antraštė buvo pašalinta.</emptyTitle>
+      <emptySummary>Santrauka buvo pašalinta.</emptySummary>
+      <emptyContent>Turinys buvo pašalintas.</emptyContent>
+      <updateMetadata>Metaduomenys {0} atnaujinti į: {1}</updateMetadata>
+      <removeMetadata>Metaduomenys {0} pašalinti.</removeMetadata>  
+      <removeTitle>Antraštė pašalinta.</removeTitle>
+      <removeName>Pavadinimas pašalintas.</removeName>
+      <removeSummary>Santrauka pašalinta.</removeSummary>
+      <removeDescription>Aprašymas pašalintas.</removeDescription>
+      <removeCreator>Kūrėjas: {0} pašalintas.</removeCreator>
+      <removeMultiCreator>Kūrėjai: {0} pašalinti.</removeMultiCreator>
+      <removeLanguage>Kalba pašalinta.</removeLanguage>
+      <removeContent>Turinys pašalintas.</removeContent>
+      <attachmentAdded>Failas(-ai) prisegtas(-i).</attachmentAdded>
+      <attachmentRemoved>Failas(-ai) pašalintas(-i).</attachmentRemoved>
+      <categoryAdded>Kategorija: {0} pridėta.</categoryAdded>
+      <categoryRemoved>Kategorija: {0} pašalinta.</categoryRemoved>
+      <tagAdded>Žyma: {0} pridėta.</tagAdded>
+      <tagsAdded>Žymos: {0} pridėtos.</tagsAdded>
+      <tagRemoved>Žyma: {0} pašalinta.</tagRemoved>
+      <tagsRemoved>Žymos: {0} pašalintos.</tagsRemoved>
+      <stateChange>
+        <pending>Paskelbimo būsena dabar laukiama.</pending>
+        <approved>Dokumentas patvirtintas.</approved>
+        <staged>Paskelbimas įvykdytas.</staged>
+        <published>Dokumentas paskelbtas.</published>
+      </stateChange>
+      <contentMoved>Paskelbimas perkeltas į: {0}</contentMoved>
+      <fileMoved>Failas perkeltas į: {0}</fileMoved>
+      <revisionChanged>Paskelbimas atkurtas į versiją: {0}</revisionChanged>
+      <version>Versija: {0}</version>
+    </messages>
+    <publicationStates>
+      <archived>Suarchyvuota</archived>
+      <obsolete>Pasenę</obsolete>
+      <unpublished>Nepaskelbtas</unpublished>
+      <draft>Projektas</draft>
+      <pending>Laukiama</pending>
+      <approved>Patvirtinta</approved>
+      <inreview>Apžvalgoje</inreview>
+      <staged>Įvykdyta</staged>
+      <published>Paskelbtas</published>
+      <live>Paskelbta</live>
+    </publicationStates>
+    <view>Rodyti</view>
+    <edit>Redaguoti</edit>
+    <download>Atsisiųsti</download>
+  </SocialIntegration>
+  <UIPopupWindow>
+    <title>
+      <DocViewer>Peržiūra</DocViewer>
+      <UIReadOnlyFileConfirmMessage>Open Document</UIReadOnlyFileConfirmMessage>
+    </title>
+  </UIPopupWindow>
+  <ElementSet>
+    <dialog>
+      <label>       
+        <resourceType>Resurso tipas</resourceType>        
+      </label>
+    </dialog>
+  </ElementSet>
+  <UIPreviewCommentArea>
+    <label>
+      <commentTextAreaPreview>Pridėti savo komentarą...</commentTextAreaPreview>
+      <no-comment-yet>No comment yet</no-comment-yet>
+    </label>
+  </UIPreviewCommentArea>
+
+  <OpenDocumentInOffice>
+    <label>
+      <exo.remote-edit.word>Open In Word</exo.remote-edit.word>
+      <exo.remote-edit.excel>Open In Excel</exo.remote-edit.excel>
+      <exo.remote-edit.powerpoint>Open In Powerpoint</exo.remote-edit.powerpoint>
+      <exo.remote-edit.desktop>Open On Desktop</exo.remote-edit.desktop>
+      <exo.remote-edit.desktop-app>Open In</exo.remote-edit.desktop-app>
+    </label>
+  </OpenDocumentInOffice>
+
+  <UIPopupMenu>
+    <msg>
+      <lock-node-read-only>This file is locked by user {0}. Open read only?</lock-node-read-only>
+    </msg>
+  </UIPopupMenu>
+<ECMContextMenu>
+<event>
+<ShareDocuments>Dalintis</ShareDocuments>
+</event>
+</ECMContextMenu>
+<UIPopupWindow>
+<title>
+<UIShareDocuments>Dalintis</UIShareDocuments>
+<Share>Dalintis</Share>
+</title>
+</UIPopupWindow>
+<UIShareDocuments>
+<label>
+<ShareButton>Dalintis</ShareButton>
+<CancelButton>Atšaukti</CancelButton>
+<TextAreaInit>Add a comment about to this file...</TextAreaInit>
+<ShareWith>Share with:</ShareWith>
+<Access>Access</Access>
+<SpaceMember>Erdvės nariai</SpaceMember>
+<SelectASpace>Select a Space</SelectASpace>
+<SharedADocument>shared a document</SharedADocument>
+<NoSpace>Please select at least one space to share</NoSpace>
+<option>
+<read>Can View</read>
+<modify>Can Edit</modify>
+</option>
+</label>
+</UIShareDocuments>
+
+<UIActionBar>
+<tooltip>
+<ShareDocuments>Dalintis</ShareDocuments>
+</tooltip>
+</UIActionBar>
+</bundle>

@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+
+    Copyright (C) 2009 eXo Platform SAS.
+    
+    This is free software; you can redistribute it and/or modify it
+    under the terms of the GNU Lesser General Public License as
+    published by the Free Software Foundation; either version 2.1 of
+    the License, or (at your option) any later version.
+    
+    This software is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+    Lesser General Public License for more details.
+    
+    You should have received a copy of the GNU Lesser General Public
+    License along with this software; if not, write to the Free
+    Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+    02110-1301 USA, or see the FSF site: http://www.fsf.org.
+
+-->
+
+<configuration
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://www.exoplatform.org/xml/ns/kernel_1_2.xsd http://www.exoplatform.org/xml/ns/kernel_1_2.xsd"
+   xmlns="http://www.exoplatform.org/xml/ns/kernel_1_2.xsd">
+  
+  <!-- UNIFIED SEARCH -->
+
+  <!-- Indexing -->
+  <component>
+    <key>org.exoplatform.commons.api.indexing.IndexingService</key>
+    <type>org.exoplatform.commons.search.indexing.JcrIndexingService</type>
+  </component>
+
+  <component>
+    <key>org.exoplatform.commons.api.search.SearchService</key>
+    <type>org.exoplatform.commons.search.driver.jcr.JcrSearchDriver</type>
+    <!-- Ecms -->
+    <component-plugins>
+      <component-plugin>
+        <name>FileSearchConnector</name>
+        <set-method>addConnector</set-method>
+        <type>org.exoplatform.services.wcm.search.connector.FileSearchServiceConnector</type>
+        <description>eXo WCM documents</description>      
+        <init-params>
+          <properties-param>
+             <name>constructor.params</name>
+             <property name="searchType" value="file"/>
+             <property name="displayName" value="Files"/>
+             <property name="enable" value="${exo.unified-search.connector.file.enable:true}"/>
+          </properties-param>
+        </init-params>      
+      </component-plugin>
+
+      <!-- Ecms -->
+      <component-plugin>
+        <name>DocumentSearchConnector</name>
+        <set-method>addConnector</set-method>
+        <type>org.exoplatform.services.wcm.search.connector.DocumentSearchServiceConnector</type>
+        <description>eXo DMS documents</description>      
+        <init-params>
+          <properties-param>
+             <name>constructor.params</name>
+             <property name="searchType" value="document"/>
+             <property name="displayName" value="Documents"/>
+             <property name="enable" value="${exo.unified-search.connector.document.enable:true}"/>
+          </properties-param>
+        </init-params>      
+      </component-plugin>
+           
+      <!-- Wiki -->
+      <component-plugin profiles="all">
+        <name>WikiSearchConnector</name>
+        <set-method>addConnector</set-method>
+        <type>org.exoplatform.wiki.service.impl.WikiSearchServiceConnector</type>
+        <description>eXo Wiki Pages</description>      
+        <init-params>
+          <properties-param>
+             <name>constructor.params</name>
+             <property name="searchType" value="wiki"/>
+             <property name="displayName" value="Wiki"/>
+             <property name="enable" value="${exo.unified-search.connector.wiki.enable:true}"/>
+          </properties-param>
+        </init-params>      
+      </component-plugin>             
+
+      <!-- Ecms --> 
+      <component-plugin>
+        <name>PageSearchConnector</name>
+        <set-method>addConnector</set-method>
+        <type>org.exoplatform.services.wcm.search.connector.PageSearchServiceConnector</type>
+        <description>eXo portal pages</description>      
+        <init-params>
+          <properties-param>
+             <name>constructor.params</name>
+             <property name="searchType" value="page"/>
+             <property name="displayName" value="Pages"/>
+             <property name="enable" value="${exo.unified-search.connector.page.enable:true}"/>
+          </properties-param>
+        </init-params>      
+      </component-plugin>
+      
+      
+      <!-- Forum --> 
+      <component-plugin profiles="all">
+        <name>DiscussionSearchConnector</name>
+        <set-method>addConnector</set-method>
+        <type>org.exoplatform.forum.service.search.DiscussionSearchConnector</type>
+        <description>eXo Forum Posts</description>
+        <init-params>
+          <properties-param>
+             <name>constructor.params</name>
+             <property name="searchType" value="post"/>
+             <property name="displayName" value="Discussions"/>
+             <property name="enable" value="${exo.unified-search.connector.post.enable:true}"/>
+          </properties-param>
+        </init-params>      
+      </component-plugin>         
+      
+      <!-- Social -->
+      <component-plugin profiles="all">
+        <name>PeopleSearchConnector</name>
+        <set-method>addConnector</set-method>
+        <type>org.exoplatform.social.core.search.PeopleSearchConnector</type>
+        <description>eXo Social People</description>
+        <init-params>
+          <properties-param>
+            <name>constructor.params</name>
+            <property name="searchType" value="people"/>
+            <property name="displayName" value="People"/>
+            <property name="enable" value="${exo.unified-search.connector.people.enable:true}"/>
+          </properties-param>
+        </init-params>      
+      </component-plugin>      
+
+      <!-- Social --> 
+      <component-plugin profiles="all">
+        <name>SpaceSearchConnector</name>
+        <set-method>addConnector</set-method>
+        <type>org.exoplatform.social.core.search.SpaceSearchConnector</type>
+        <description>eXo Social Spaces</description>
+        <init-params>
+          <properties-param>
+             <name>constructor.params</name>
+             <property name="searchType" value="space"/>
+             <property name="displayName" value="Spaces"/>
+             <property name="enable" value="${exo.unified-search.connector.space.enable:true}"/>
+          </properties-param>
+        </init-params>      
+      </component-plugin>      
+      
+     <!-- Calendar -->
+      <component-plugin profiles="all">
+        <name>EventSearchConnector</name>
+        <set-method>addConnector</set-method>
+        <type>org.exoplatform.calendar.service.impl.EventSearchConnector</type>
+        <description>eXo Calendar events</description>
+        <init-params>
+          <properties-param>
+             <name>constructor.params</name>
+             <property name="searchType" value="event"/>
+             <property name="displayName" value="Events"/>
+             <property name="enable" value="${exo.unified-search.connector.event.enable:true}"/>
+          </properties-param>
+        </init-params>      
+      </component-plugin>            
+      
+      <!-- Calendar -->
+      <component-plugin profiles="all">
+        <name>TaskSearchConnector</name>
+        <set-method>addConnector</set-method>
+        <type>org.exoplatform.calendar.service.impl.TaskSearchConnector</type>
+        <description>eXo Calendar tasks</description>
+        <init-params>
+          <properties-param>
+             <name>constructor.params</name>
+             <property name="searchType" value="task"/>
+             <property name="displayName" value="Tasks"/>
+             <property name="enable" value="${exo.unified-search.connector.task.enable:true}"/>
+          </properties-param>
+        </init-params>      
+      </component-plugin>
+            
+    </component-plugins>
+
+    <init-params>
+      <value-param>
+        <name>exo.search.excluded-characters</name>
+        <value>${search.excluded-characters:.}</value>
+      </value-param>
+    </init-params>
+
+  </component>
+
+  <component>
+    <type>org.exoplatform.commons.search.service.UnifiedSearchService</type>
+  </component>
+
+  <!-- Indexing Listeners -->
+  <external-component-plugins>
+    <target-component>org.exoplatform.services.listener.ListenerService</target-component>
+    <component-plugin>
+      <name>CmsService.event.postCreate</name>
+      <set-method>addListener</set-method>
+      <type>org.exoplatform.commons.search.indexing.listeners.UnifiedSearchContentListener</type>
+      <description>Content listener for Unified Search</description>
+    </component-plugin>
+  </external-component-plugins>
+  <external-component-plugins>
+    <target-component>org.exoplatform.services.listener.ListenerService</target-component>
+    <component-plugin>
+      <name>CmsService.event.postEdit</name>
+      <set-method>addListener</set-method>
+      <type>org.exoplatform.commons.search.indexing.listeners.UnifiedSearchContentListener</type>
+      <description>Content listener for Unified Search</description>
+    </component-plugin>
+  </external-component-plugins>
+  <external-component-plugins>
+    <target-component>org.exoplatform.wiki.service.WikiService</target-component>
+    <component-plugin>
+      <name>unifiedsearch.listeners.wiki</name>
+      <set-method>addComponentPlugin</set-method>
+      <type>org.exoplatform.commons.search.indexing.listeners.UnifiedSearchPageWikiListener</type>
+      <description>Wiki listener for Unified Search</description>
+    </component-plugin>
+  </external-component-plugins>
+  <external-component-plugins>
+    <target-component>org.exoplatform.forum.service.ForumService</target-component>
+    <component-plugin>
+      <name>unifiedsearch.listeners.forum</name>
+      <set-method>addListenerPlugin</set-method>
+      <type>org.exoplatform.commons.search.indexing.listeners.UnifiedSearchForumListener</type>
+      <description>Forum listener for Unified Search</description>
+    </component-plugin>
+  </external-component-plugins>
+  <external-component-plugins>
+    <target-component>org.exoplatform.calendar.service.CalendarService</target-component>
+    <component-plugin>
+      <name>unifiedsearch.listeners.calendar</name>
+      <set-method>addEventListenerPlugin</set-method>
+      <type>org.exoplatform.commons.search.indexing.listeners.UnifiedSearchCalendarListener</type>
+      <description>Calendar listener for Unified Search</description>
+    </component-plugin>
+  </external-component-plugins>
+  <external-component-plugins>
+    <target-component>org.exoplatform.services.organization.OrganizationService</target-component>
+    <component-plugin>
+      <name>unifiedsearch.listeners.organization.profile</name>
+      <set-method>addListenerPlugin</set-method>
+      <type>org.exoplatform.commons.search.indexing.listeners.UnifiedSearchOrganizationProfileListener</type>
+      <description>Social Profile listener for Unified Search</description>
+    </component-plugin>
+  </external-component-plugins>
+  <external-component-plugins>
+    <target-component>org.exoplatform.social.core.manager.IdentityManager</target-component>
+    <component-plugin>
+      <name>unifiedsearch.listeners.social.profile</name>
+      <set-method>addProfileListener</set-method>
+      <type>org.exoplatform.commons.search.indexing.listeners.UnifiedSearchSocialProfileListener</type>
+      <description>Social Profile listener for Unified Search</description>
+    </component-plugin>
+  </external-component-plugins>
+  <external-component-plugins>
+    <target-component>org.exoplatform.social.core.space.spi.SpaceService</target-component>
+    <component-plugin>
+      <name>unifiedsearch.listeners.social.space</name>
+      <set-method>addSpaceListener</set-method>
+      <type>org.exoplatform.commons.search.indexing.listeners.UnifiedSearchSocialSpaceListener</type>
+      <description>Social Space listener for Unified Search</description>
+    </component-plugin>
+  </external-component-plugins>
+
+  <import>classpath:/conf/portal/resource-bundle-configuration.xml</import>
+
+</configuration>

@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bundle>
+  <UIConfirmMessage>
+    <label>
+      <ReadOnly>Open Read-only</ReadOnly>
+    </label>
+  </UIConfirmMessage>
+
+  <UISocialPopupWindow>
+    <title>
+      <UIReadOnlyFileConfirmMessage>Open Document</UIReadOnlyFileConfirmMessage>
+    </title>
+  </UISocialPopupWindow>
+  <SocialIntegration>
+    <titles>
+      <fileSize>حجم فایل</fileSize>
+    </titles>
+    <messages>
+      <createdBy>ایجاد شده توسط</createdBy>
+      <editedBy>was edited by</editedBy>
+      <system>سیستم</system>
+      <readmore>...Read More.</readmore>
+      <editTitle>عنوان به روز شد به: {0}</editTitle>
+      <editName>نام به روز شده به: {0}</editName>
+      <editDescription>توضیحات به روز شده به: {0}</editDescription>
+      <singleCreator>ایجاد کننده: {0}</singleCreator>
+      <multiCreator>ایجاد کنندگان: {0}</multiCreator>
+      <addSource>فایل منبع: {0} اضافه شد</addSource>
+      <addMultiSource>فایل های منبع: {0} اضافه شدند</addMultiSource>
+      <removeSource>فایل منبع: {0} حذف شد</removeSource>
+      <removeMultiSource>فایل های منبع: {0} حذف شدند</removeMultiSource>
+      <editSummary>خلاصه به روز شد به: {0}</editSummary>
+      <editLanguage>زبان بروز شد به: {0}</editLanguage>
+      <editContent>محتوا به روز شد.</editContent>
+      <editFile>فایل به روز شد.</editFile>
+      <emptyTitle>عنوان حذف شده است.</emptyTitle>
+      <emptySummary>خلاصه حذف شده است.</emptySummary>
+      <emptyContent>محتوا حذف شده است.</emptyContent>
+      <updateMetadata>فراداده {0} به روز شد به: {1}</updateMetadata>
+      <removeMetadata>فراداده '{0}' حذف شده است.</removeMetadata>  
+      <removeTitle>عنوان حذف شده است.</removeTitle>
+      <removeName>نام حذف شده است.</removeName>
+      <removeSummary>خلاصه برداشته شده است.</removeSummary>
+      <removeDescription>شرح حذف شده است.</removeDescription>
+      <removeCreator>ایجادکننده: {0} حذف شده است.</removeCreator>
+      <removeMultiCreator>ایجادکنندگان: {0} حذف شده اند.</removeMultiCreator>
+      <removeLanguage>زبان حذف شده است.</removeLanguage>
+      <removeContent>Content has been removed.</removeContent>
+      <attachmentAdded>فایل (ها) پیوست شده (اند).</attachmentAdded>
+      <attachmentRemoved>فایل (ها) حذف شده (اند).</attachmentRemoved>
+      <categoryAdded>دسته: {0} اضافه شده است.</categoryAdded>
+      <categoryRemoved>دسته: {0} حذف شده است.</categoryRemoved>
+      <tagAdded>برچسب: {0} اضافه شده است.</tagAdded>
+      <tagsAdded>برچسب های: {0} اضافه شده اند.</tagsAdded>
+      <tagRemoved>برچسب: {0} برداشته شده است.</tagRemoved>
+      <tagsRemoved>برچسب های: {0} حذف شده اند.</tagsRemoved>
+      <stateChange>
+        <pending>وضعیت انتشار در حال حاضر در انتظار است.</pending>
+        <approved>سند تایید شده است.</approved>
+        <staged>انتشار در وضعیت آماده قرار گرفت.</staged>
+        <published>سند منتشر شده است.</published>
+      </stateChange>
+      <contentMoved>انتشار منتقل شده به: {0}</contentMoved>
+      <fileMoved>فایل انتقال داده شده به: {0}</fileMoved>
+      <revisionChanged>انتشار به نسخه: {0} بازسازی شده است</revisionChanged>
+      <version>نسخه: {0}</version>
+    </messages>
+    <publicationStates>
+      <archived>آرشیو شده</archived>
+      <obsolete>منسوخ</obsolete>
+      <unpublished>منتشر نشده</unpublished>
+      <draft>پیش‌نویس</draft>
+      <pending>در انتظار</pending>
+      <approved>تایید شده</approved>
+      <inreview>در حال بررسی</inreview>
+      <staged>صحنه</staged>
+      <published>منتشرشده</published>
+      <live>منتشرشده</live>
+    </publicationStates>
+    <view>مشاهده</view>
+    <edit>ويرايش</edit>
+    <download>دانلود</download>
+  </SocialIntegration>
+  <UIPopupWindow>
+    <title>
+      <DocViewer>پیش نمایش</DocViewer>
+      <UIReadOnlyFileConfirmMessage>Open Document</UIReadOnlyFileConfirmMessage>
+    </title>
+  </UIPopupWindow>
+  <ElementSet>
+    <dialog>
+      <label>       
+        <resourceType>نوع منبع</resourceType>        
+      </label>
+    </dialog>
+  </ElementSet>
+  <UIPreviewCommentArea>
+    <label>
+      <commentTextAreaPreview>Add your comment...</commentTextAreaPreview>
+      <no-comment-yet>No comment yet</no-comment-yet>
+    </label>
+  </UIPreviewCommentArea>
+
+  <OpenDocumentInOffice>
+    <label>
+      <exo.remote-edit.word>Open In Word</exo.remote-edit.word>
+      <exo.remote-edit.excel>Open In Excel</exo.remote-edit.excel>
+      <exo.remote-edit.powerpoint>Open In Powerpoint</exo.remote-edit.powerpoint>
+      <exo.remote-edit.desktop>Open On Desktop</exo.remote-edit.desktop>
+      <exo.remote-edit.desktop-app>Open In</exo.remote-edit.desktop-app>
+    </label>
+  </OpenDocumentInOffice>
+
+  <UIPopupMenu>
+    <msg>
+      <lock-node-read-only>This file is locked by user {0}. Open read only?</lock-node-read-only>
+    </msg>
+  </UIPopupMenu>
+<ECMContextMenu>
+<event>
+<ShareDocuments>اشتراک</ShareDocuments>
+</event>
+</ECMContextMenu>
+<UIPopupWindow>
+<title>
+<UIShareDocuments>اشتراک</UIShareDocuments>
+<Share>اشتراک</Share>
+</title>
+</UIPopupWindow>
+<UIShareDocuments>
+<label>
+<ShareButton>اشتراک</ShareButton>
+<CancelButton>انصراف</CancelButton>
+<TextAreaInit>Add a comment about to this file...</TextAreaInit>
+<ShareWith>Share with:</ShareWith>
+<Access>Access</Access>
+<SpaceMember>اعضای فضا</SpaceMember>
+<SelectASpace>Select a Space</SelectASpace>
+<SharedADocument>shared a document</SharedADocument>
+<NoSpace>Please select at least one space to share</NoSpace>
+<option>
+<read>Can View</read>
+<modify>Can Edit</modify>
+</option>
+</label>
+</UIShareDocuments>
+
+<UIActionBar>
+<tooltip>
+<ShareDocuments>اشتراک</ShareDocuments>
+</tooltip>
+</UIActionBar>
+</bundle>

@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bundle>
+  <UIConfirmMessage>
+    <label>
+      <ReadOnly>Open Read-only</ReadOnly>
+    </label>
+  </UIConfirmMessage>
+
+  <UISocialPopupWindow>
+    <title>
+      <UIReadOnlyFileConfirmMessage>Open Document</UIReadOnlyFileConfirmMessage>
+    </title>
+  </UISocialPopupWindow>
+  <SocialIntegration>
+    <titles>
+      <fileSize>ファイルサイズ</fileSize>
+    </titles>
+    <messages>
+      <createdBy>が作成されました。作成者：</createdBy>
+      <editedBy>が編集されました。編集者：</editedBy>
+      <system>システム</system>
+      <readmore>...続きを読む.</readmore>
+      <editTitle>タイトルが更新されました： {0}</editTitle>
+      <editName>名前が更新されました：{0}</editName>
+      <editDescription>説明文が更新されました： {0}</editDescription>
+      <singleCreator>作成者：{0}</singleCreator>
+      <multiCreator>作成者：{0}</multiCreator>
+      <addSource>ファイル ソース： {0} が追加されました</addSource>
+      <addMultiSource>ファイル ソース： {0} が追加されました</addMultiSource>
+      <removeSource>ファイル ソース： {0} が削除されました</removeSource>
+      <removeMultiSource>ファイル ソース： {0} が削除されました</removeMultiSource>
+      <editSummary>概要が更新されました: {0}</editSummary>
+      <editLanguage>言語が更新されました： {0}</editLanguage>
+      <editContent>コンテンツが更新されました</editContent>
+      <editFile>ファイルが更新されました</editFile>
+      <emptyTitle>タイトルが削除されました</emptyTitle>
+      <emptySummary>概要が削除されました</emptySummary>
+      <emptyContent>コンテンツが削除されました</emptyContent>
+      <updateMetadata>メタデータ: {0} が更新されました： {1}</updateMetadata>
+      <removeMetadata>メタデータ: {0} が削除されました</removeMetadata>  
+      <removeTitle>タイトルが削除されました</removeTitle>
+      <removeName>名前が削除されました</removeName>
+      <removeSummary>概要が削除されました</removeSummary>
+      <removeDescription>説明が削除されました</removeDescription>
+      <removeCreator>作成者: {0} が削除されました</removeCreator>
+      <removeMultiCreator>作成者: {0} が削除されました</removeMultiCreator>
+      <removeLanguage>言語が削除されました</removeLanguage>
+      <removeContent>コンテンツが削除されました</removeContent>
+      <attachmentAdded>ファイルが添付されました</attachmentAdded>
+      <attachmentRemoved>ファイルが削除されました</attachmentRemoved>
+      <categoryAdded>カテゴリ: {0} が追加されました</categoryAdded>
+      <categoryRemoved>カテゴリ: {0} が削除されました</categoryRemoved>
+      <tagAdded>タグ: {0} が追加されました</tagAdded>
+      <tagsAdded>タグ: {0} が追加されました</tagsAdded>
+      <tagRemoved>タグ: {0} が削除されました</tagRemoved>
+      <tagsRemoved>タグ: {0} が削除されました</tagsRemoved>
+      <stateChange>
+        <pending>公開ステータスが、保留中になっています</pending>
+        <approved>Document has been approved.</approved>
+        <staged>文書が承認申請されました</staged>
+        <published>Document has been published.</published>
+      </stateChange>
+      <contentMoved>文書が移動されました： {0}</contentMoved>
+      <fileMoved>ファイルが移動されました： {0}</fileMoved>
+      <revisionChanged>文書は、バージョン{0} で保存されました</revisionChanged>
+      <version>バージョン: {0}</version>
+    </messages>
+    <publicationStates>
+      <archived>アーカイブ</archived>
+      <obsolete>廃止されました</obsolete>
+      <unpublished>未公開</unpublished>
+      <draft>草案</draft>
+      <pending>保留中</pending>
+      <approved>承認</approved>
+      <inreview>レビュー中</inreview>
+      <staged>承認申請</staged>
+      <published>公開</published>
+      <live>公開</live>
+    </publicationStates>
+    <view>ビュー</view>
+    <edit>編集</edit>
+    <download>ファイルをダウンロード</download>
+  </SocialIntegration>
+  <UIPopupWindow>
+    <title>
+      <DocViewer>プレビュー</DocViewer>
+      <UIReadOnlyFileConfirmMessage>Open Document</UIReadOnlyFileConfirmMessage>
+    </title>
+  </UIPopupWindow>
+  <ElementSet>
+    <dialog>
+      <label>       
+        <resourceType>リソースタイプ</resourceType>        
+      </label>
+    </dialog>
+  </ElementSet>
+  <UIPreviewCommentArea>
+    <label>
+      <commentTextAreaPreview>コメントを追加...</commentTextAreaPreview>
+      <no-comment-yet>No comment yet</no-comment-yet>
+    </label>
+  </UIPreviewCommentArea>
+
+  <OpenDocumentInOffice>
+    <label>
+      <exo.remote-edit.word>Open In Word</exo.remote-edit.word>
+      <exo.remote-edit.excel>Open In Excel</exo.remote-edit.excel>
+      <exo.remote-edit.powerpoint>Open In Powerpoint</exo.remote-edit.powerpoint>
+      <exo.remote-edit.desktop>Open On Desktop</exo.remote-edit.desktop>
+      <exo.remote-edit.desktop-app>Open In</exo.remote-edit.desktop-app>
+    </label>
+  </OpenDocumentInOffice>
+
+  <UIPopupMenu>
+    <msg>
+      <lock-node-read-only>This file is locked by user {0}. Open read only?</lock-node-read-only>
+    </msg>
+  </UIPopupMenu>
+<ECMContextMenu>
+<event>
+<ShareDocuments>共有</ShareDocuments>
+</event>
+</ECMContextMenu>
+<UIPopupWindow>
+<title>
+<UIShareDocuments>共有</UIShareDocuments>
+<Share>共有</Share>
+</title>
+</UIPopupWindow>
+<UIShareDocuments>
+<label>
+<ShareButton>共有</ShareButton>
+<CancelButton>キャンセル</CancelButton>
+<TextAreaInit>Add a comment about to this file...</TextAreaInit>
+<ShareWith>Share with:</ShareWith>
+<Access>Access</Access>
+<SpaceMember>スペースメンバー</SpaceMember>
+<SelectASpace>Select a Space</SelectASpace>
+<SharedADocument>shared a document</SharedADocument>
+<NoSpace>Please select at least one space to share</NoSpace>
+<option>
+<read>Can View</read>
+<modify>Can Edit</modify>
+</option>
+</label>
+</UIShareDocuments>
+
+<UIActionBar>
+<tooltip>
+<ShareDocuments>共有</ShareDocuments>
+</tooltip>
+</UIActionBar>
+</bundle>
