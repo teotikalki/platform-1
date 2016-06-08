@@ -150,28 +150,16 @@
                   <string>eXoWCMResources</string>
                </value>
                <value>
-                  <string>ecmexplorer</string>
-               </value>
-               <value>
-                  <string>ecmadmin</string>
-               </value>
-               <value>
                   <string>ecm-wcm-core</string>
+               </value>
+               <value>
+                 <string>ecms-portlets</string>
                </value>
                <value>
                   <string>platform-template-waiportal</string>
                </value>
                <value>
-                  <string>presentation</string>
-               </value>
-               <value>
-                  <string>searches</string>
-               </value>
-               <value>
                   <string>authoring-apps</string>
-               </value>
-               <value>
-                  <string>seo</string>
                </value>
 
                <!-- SOCIAL -->
