@@ -4,7 +4,7 @@
       <label>
          <topic>Konu</topic>
          <poll>Anket</poll>
-         <eventtask>Etkinlik/Görev</eventtask>
+         <event>Etkinlik</event>
          <upload>Dosya Yükle</upload>
          <wiki>Wiki Sayfası</wiki>
 
